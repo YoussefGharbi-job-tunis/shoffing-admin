@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule', canActivate: [LoggedGuard] },
   {
     path: 'add-categorie',
-    loadChildren: () => import('./Categories/add-categorie/add-categorie.module').then( m => m.AddCategoriePageModule)
+    loadChildren: () => import('./pages/Categories/add-categorie/add-categorie.module').then( m => m.AddCategoriePageModule)
   },
   {
     path: 'list-orders',

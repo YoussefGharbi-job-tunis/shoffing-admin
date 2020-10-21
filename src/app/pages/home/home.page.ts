@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +17,8 @@ export class HomePage implements OnInit {
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController, 
-     public actionSheetController: ActionSheetController, ) {
+     public actionSheetController: ActionSheetController, 
+     private router:Router) {
      
   }
 
@@ -56,7 +58,7 @@ export class HomePage implements OnInit {
         text: 'Orders',
         icon: 'cart',
         handler: () => {
-              this.presentToast("Orders")
+              this.router.navigate(["/list-orders"])
 
           },
         },
@@ -64,14 +66,14 @@ export class HomePage implements OnInit {
           text: 'Add Categories',
           icon: 'add',
           handler: () => {
-            this.presentToast("Add Categories")
+            this.router.navigate(["/add-categorie"])
              },
           },
           {
             text: 'Add Products',
             icon: 'add',
             handler: () => {
-              this.presentToast("Add Products")
+              this.router.navigate(["/add-product"])
     
               },
             },
