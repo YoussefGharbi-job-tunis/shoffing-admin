@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from '../interfaces/user';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +9,9 @@ export class AuthService {
   list(arg0: string) {
     throw new Error("Method not implemented.");
   }
-  private userCollection: AngularFirestoreCollection<User>;
+ 
 
-  constructor(private afa: AngularFireAuth,private db: AngularFirestore) {
-    this.userCollection = this.db.collection<User>('Users');
-
-   }
+  constructor(private afa: AngularFireAuth) {}
  
     login(email:string, password:string){
 

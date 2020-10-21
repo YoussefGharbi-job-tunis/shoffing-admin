@@ -1,10 +1,10 @@
 <ion-header >
-  <ion-toolbar color="primary" >
-     <ion-button slot="end" fill="clear" (click)="presentActionSheet()">
-       <ion-icon style="color:#fff" name="menu"></ion-icon>
+  <ion-toolbar>
+     <ion-button slot="start" fill="clear" (click)="presentActionSheet()">
+       <ion-icon style="color:#000" name="menu"></ion-icon>
      </ion-button>
      <ion-title>
-      Shoffing
+      Products
      </ion-title>
    </ion-toolbar>
  </ion-header>
@@ -12,13 +12,34 @@
  <ion-content>
    <br>
  <ion-searchbar></ion-searchbar>
-<br>
-<ion-input type="text-center" placeholder="Bienvenue dans notre application" align="center" style="color:blue"></ion-input>
+ <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="'/add-product'">
+  <ion-fab-button >
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
  </ion-content>
 
 <ion-footer>
   <ion-toolbar>
- 
+    <ion-footer>
+      <ion-toolbar>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button   expand="block">
+                Products
+              </ion-button>
+            </ion-col>
+    
+            <ion-col size="6">
+              <ion-button  [routerLink]="'/list-orders'" expand="block">
+               Orders
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+    </ion-footer>
    
   </ion-toolbar>
 

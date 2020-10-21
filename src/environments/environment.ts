@@ -5,16 +5,15 @@
 export const environment = {
   production: false,};
   export const firebaseConfig = {  
-    apiKey: "AIzaSyAzHlGhC54zAMRLvG757JhYq_1WBqZQPQ0",
-    authDomain: "shoffing-928b4.firebaseapp.com",
-    databaseURL: "https://shoffing-928b4.firebaseio.com",
-    projectId: "shoffing-928b4",
-    storageBucket: "shoffing-928b4.appspot.com",
-    messagingSenderId: "72814077093",
-    appId: "1:72814077093:web:e9717609a9533c22e2594c",
-    measurementId: "G-TDBHQYME9B"
+    apiKey: "AIzaSyCDMPrcxGxwWnTmy6285BjILV1k6FAtBzU",
+    authDomain: "parking-9d921.firebaseapp.com",
+    databaseURL: "https://parking-9d921.firebaseio.com",
+    projectId: "parking-9d921",
+    storageBucket: "parking-9d921.appspot.com",
+    messagingSenderId: "614240993622",
+    appId: "1:614240993622:web:d5e93763b7de4dddcdd6f7"
   };
-
+  
 
 
 /*

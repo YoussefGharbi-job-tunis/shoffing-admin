@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
-
-
-import { User } from 'src/app/interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 
@@ -15,43 +12,18 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class HomePage implements OnInit {
   private loading: any;
-
-  public user :User ={}
-
-public chatRooms :any = [];
-sampleArr=[];
-
-
-
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-  
-    private toastCtrl: ToastController,  public actionSheetController: ActionSheetController,
-    private afs: AngularFirestore) {
+    private toastCtrl: ToastController, 
+     public actionSheetController: ActionSheetController, ) {
      
   }
-///
+
   ngOnInit() { 
  
   }
-/// 
 
-filterList(evt) {
-    this.initializeItems();
-    const searchTerm = evt.srcElement.value;
-    if (!searchTerm) {
-      return;
-}
-;
-  }
-  initializeItems() {
-    throw new Error("Method not implemented.");
-  }
-///  
-ngOnDestroy() {
-   
-  }
 
   async logout() {
     await this.presentLoading();
@@ -81,13 +53,37 @@ ngOnDestroy() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Option',
       buttons: [{
-        text: 'Déconnexion',
+        text: 'Orders',
+        icon: 'cart',
+        handler: () => {
+              this.presentToast("Orders")
+
+          },
+        },
+        {
+          text: 'Add Categories',
+          icon: 'add',
+          handler: () => {
+            this.presentToast("Add Categories")
+             },
+          },
+          {
+            text: 'Add Products',
+            icon: 'add',
+            handler: () => {
+              this.presentToast("Add Products")
+    
+              },
+            },
+        {
+        text: 'logout',
         role: 'destructive',
         icon: 'log-out',
         handler: () => {
                this.logout()
 
         },
+
       }]
     });
     await actionSheet.present();

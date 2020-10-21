@@ -8,6 +8,20 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthGuard] },
   
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule', canActivate: [LoggedGuard] },
+  {
+    path: 'add-categorie',
+    loadChildren: () => import('./Categories/add-categorie/add-categorie.module').then( m => m.AddCategoriePageModule)
+  },
+  {
+    path: 'list-orders',
+    loadChildren: () => import('./pages/orders/list-orders/list-orders.module').then( m => m.ListOrdersPageModule)
+  },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./pages/Products/add-product/add-product.module').then( m => m.AddProductPageModule)
+  },
+  
+
 
 
 
