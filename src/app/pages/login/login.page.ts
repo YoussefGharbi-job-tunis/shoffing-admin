@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
+import { IonSlides, LoadingController, ToastController, MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public keyboard: Keyboard,
-    public router:Router
+    public router:Router,public menuCtrl: MenuController
   ) { }
 
   ngOnInit() { }
@@ -51,5 +51,7 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
-
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
 }

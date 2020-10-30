@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
+import { LoadingController, ToastController, ActionSheetController, MenuController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/interfaces/product';
+import { ProdService } from 'src/app/services/products/prod.service';
 
 
 
@@ -13,81 +15,45 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   private loading: any;
+  public products = new Array<Product>();
+
   constructor(
-    private authService: AuthService,
+    private productService: ProdService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController, 
      public actionSheetController: ActionSheetController, 
-     private router:Router) {
-     
-  }
+     private router:Router,public menuCtrl: MenuController) {}
 
   ngOnInit() { 
- 
+    this.loadProducts()
   }
 
-
-  async logout() {
-    await this.presentLoading();
-
-   try {
-      await this.authService.logout();
-    } catch (error) {
-      console.error(error);
-    } finally {
+  loadProducts(){
+    this.productService.getProducts().subscribe(data=>{
+       this.products=data;
+       })
+   }
+   
+   async deleteProduct(id: string) {
+    await this.presentLoading()
+    try {
+      await this.productService.deleteProduct(id)
       this.loading.dismiss();
+        this.router.navigate(["/home"])
+    } catch (error) {
+      this.presentToast('error');
     }
   }
-
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({ message: 'wait...' });
     return this.loading.present();
   }
-
- 
-
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({ message, duration: 2000 });
     toast.present();
   }
- 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Option',
-      buttons: [{
-        text: 'Orders',
-        icon: 'cart',
-        handler: () => {
-              this.router.navigate(["/list-orders"])
-
-          },
-        },
-        {
-          text: 'Add Categories',
-          icon: 'add',
-          handler: () => {
-            this.router.navigate(["/add-categorie"])
-             },
-          },
-          {
-            text: 'Add Products',
-            icon: 'add',
-            handler: () => {
-              this.router.navigate(["/add-product"])
-    
-              },
-            },
-        {
-        text: 'logout',
-        role: 'destructive',
-        icon: 'log-out',
-        handler: () => {
-               this.logout()
-
-        },
-
-      }]
-    });
-    await actionSheet.present();
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
+
 }

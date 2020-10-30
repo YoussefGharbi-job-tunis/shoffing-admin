@@ -1,17 +1,46 @@
 <ion-header >
   <ion-toolbar>
-     <ion-button slot="start" fill="clear" (click)="presentActionSheet()">
-       <ion-icon style="color:#000" name="menu"></ion-icon>
-     </ion-button>
      <ion-title>
       Products
      </ion-title>
+     <ion-buttons slot="start">
+       <ion-menu-button menu="main-menu"></ion-menu-button>
+     </ion-buttons>
    </ion-toolbar>
  </ion-header>
  
  <ion-content>
    <br>
  <ion-searchbar></ion-searchbar>
+ <ion-row>
+  <ion-col>
+   <ion-list class="products">
+     <ion-label >My Products</ion-label>
+     <ion-item-sliding *ngFor="let product of products;">
+       <ion-item button [routerLink]="['/edit-product', product.id]">
+         <ion-avatar slot="start">
+           <img [src]="product.picture">
+         </ion-avatar>
+ 
+         <ion-label>
+           {{ product.name }}
+           <p>{{ product.description }}</p>
+         </ion-label>
+ 
+         <ion-note color="primary" slot="end" *ngIf="product.price">{{ product.price | currency: 'TND' }}</ion-note>
+       </ion-item>
+ 
+       <ion-item-options side="end">
+         <ion-item-option color="danger" (click)="deleteProduct(product.id)">
+           <ion-icon slot="top" name="trash"></ion-icon>
+           delete
+         </ion-item-option>
+       </ion-item-options>
+     </ion-item-sliding>
+   </ion-list>
+ </ion-col>
+ </ion-row>
+
  <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="'/add-product'">
   <ion-fab-button >
     <ion-icon name="add"></ion-icon>

@@ -1,12 +1,90 @@
+
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar >
     <ion-buttons slot="start">
-      <ion-back-button  ></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>add-product</ion-title>
+
+    <ion-title>Add Product</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <form [formGroup]="productForm" (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-input formControlName="name" type="text" placeholder="Name"></ion-input>
+      </ion-item>
+      <!-- Error messages -->
+         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+            Name is required.
+         </span>
+         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+             Name should be min 2 chars long.
+         </span>
+         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.maxlength">
+          Name should be max 30 chars long.
+      </span>
+      
+  
+      <ion-item>
+        <ion-textarea rows="4" formControlName="description" placeholder="Description"></ion-textarea>
+      </ion-item>
+      <!-- Error messages -->
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.required">
+        Description is required.
+     </span>
+     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.minlength">
+      Description should be min 100 chars long.
+     </span>
+     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.maxlength">
+      Description should be max 1000 chars long.
+  </span>
+  
+      <ion-item lines="none">
+        <input type="file" formControlName="picture" (change)="chooseFile($event)" required>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.picture.errors?.required">
+        photo is required.
+     </span>
+      <ion-item>
+        <ion-select  formControlName="salesUnit" >
+          <ion-select-option *ngFor="let item of salesUnit" [value]="item.libelle">
+            {{item.libelle}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+        sales Unit is required.
+     </span>
+  
+      <ion-item>
+        <ion-input type="number" formControlName="price" placeholder="Price"></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+        price is required.
+      </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+        Only numerical values allowed.
+      </span>
+  
+      <ion-item>
+        <ion-input type="number" formControlName="amount" placeholder="Amount"></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+        Amount is required.
+      </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+        Only numerical values allowed.
+      </span>
+
+      <ion-button [disabled]="!productForm.valid" type="submit" expand="block">
+        submit
+        <ion-icon slot="end" name="create"></ion-icon>
+      </ion-button>
+  
+    </ion-list>
+
+  </form>
 
 </ion-content>

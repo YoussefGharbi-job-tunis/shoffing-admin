@@ -1,0 +1,45 @@
+
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Edit Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="product.name" placeholder="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea rows="4" [(ngModel)]="product.description" placeholder="Description"></ion-textarea>
+    </ion-item>
+    <ion-item lines="none">
+      <input type="file" [(ngModel)]="product.picture" (change)="chooseFile($event)" required>
+    </ion-item>
+   
+    <ion-item>
+      <ion-select  [(ngModel)]="product.salesUnit" >
+        <ion-select-option *ngFor="let item of salesUnit" [value]="item.libelle">
+          {{item.libelle}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="product.price" placeholder="Price"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="product.amount" placeholder="Amount"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="saveProduct()" expand="block">
+      Save product
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
