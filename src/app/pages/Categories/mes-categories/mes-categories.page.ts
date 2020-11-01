@@ -1,30 +1,83 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import {CategorieService} from "../../../services/categorie.service"
 
+import { User } from 'src/app/interface/user';
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-mes-categories',
+  templateUrl: './mes-categories.page.html',
+  styleUrls: ['./mes-categories.page.scss'],
 })
-export class HomePage implements OnInit {
-  private loading: any;
+export class MesCategoriesPage implements OnInit {
+ 
+  
+private loading: any;
+public user :User;
+public
+private userId:string
+public categories :any;
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController, 
+    
      public actionSheetController: ActionSheetController, 
-     private router:Router) {
+     private router:Router,
+     private categorieService: CategorieService,
+     private activatedRoute: ActivatedRoute) {
+      this.userId = this.activatedRoute.snapshot.params['id'];
+  
+     }
      
-  }
+  
 
-  ngOnInit() { 
- 
+    ngOnInit() { 
+  this.loadcategorie()   
+   }
+
+
+
+
+  filterList(evt) {
+  const searchTerm = evt.srcElement.value;
+  if (!searchTerm) {
+    return;
   }
+this.categories = this.categories.filter(currentGoal => {
+    if (currentGoal.name && searchTerm) {
+    if (currentGoal.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+      return true;
+      }
+      return false;
+    }
+  });
+}
+
+
+
+   loadcategorie(){
+    this.categorieService.getAllcategorie(this.userId).subscribe(data=>{
+      this.categories=data;
+       })
+   }
+
+   async deletecategorie(id: string) {
+    await this.presentLoading()
+    try {
+      await this.categorieService.deletecategorie(id)
+      this.loading.dismiss();
+        this.router.navigate(["/mes-categories",this.userId])
+    } catch (error) {
+      this.presentToast('error');
+    }
+  }
+  
+  
 
 
   async logout() {
@@ -91,3 +144,5 @@ export class HomePage implements OnInit {
     await actionSheet.present();
   }
 }
+
+

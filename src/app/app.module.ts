@@ -13,6 +13,8 @@ import { firebaseConfig } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { AngularFireStorageModule } from "@angular/fire/storage";
+
 import { from } from 'rxjs';
 
 @NgModule({
@@ -24,7 +26,9 @@ import { from } from 'rxjs';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+   
   ],
   providers: [
     StatusBar,
