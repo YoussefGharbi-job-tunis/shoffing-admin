@@ -6,7 +6,6 @@ import { LoggedGuard } from './guards/logged.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthGuard] },
-  
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule', canActivate: [LoggedGuard] },
   {
     path: 'add-categorie',
@@ -30,6 +29,22 @@ const routes: Routes = [
   },
 
   
+  {
+    path: 'mes-categories',
+    loadChildren: () => import('./pages/Categories/mes-categories/mes-categories.module').then( m => m.MesCategoriesPageModule)
+  },
+  {
+    path: 'add-sous-categorie/:id',
+    loadChildren: () => import('./pages/Sous-categories/add-sous-categorie/add-sous-categorie.module').then( m => m.AddSousCategoriePageModule)
+  },
+  {
+    path: 'liste-sous-categorie/:id',
+    loadChildren: () => import('./pages/Sous-categories/liste-sous-categorie/liste-sous-categorie.module').then( m => m.ListeSousCategoriePageModule)
+  },
+
+
+
+
 
 
 

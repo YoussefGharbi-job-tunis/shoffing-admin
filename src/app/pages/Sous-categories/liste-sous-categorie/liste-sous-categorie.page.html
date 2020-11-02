@@ -1,0 +1,66 @@
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+
+     <ion-button slot="end" fill="clear" (click)="presentActionSheet()">
+      <ion-back-button></ion-back-button>
+       <ion-icon style="color:#fff" name="menu"></ion-icon>
+     
+     </ion-button>
+     
+     <ion-title>
+       Mes Sous-Categories
+     </ion-title>
+   </ion-toolbar>
+ </ion-header>
+ <ion-content>
+
+  <ion-searchbar (ionInput)="filterList($event)"></ion-searchbar>
+
+<ion-row>
+ <ion-col>
+
+
+<ion-list class="souscategorie">
+  
+  <ion-item-sliding *ngFor="let souscategorie of souscategories;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="souscategorie.picture">
+      </ion-avatar>
+  
+      <ion-label>
+        {{ souscategorie.name }}
+       </ion-label>
+   
+     
+      </ion-item>
+ 
+     
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deletesouscategorie(souscategorie.id)">
+          <ion-icon slot="top" name="trash"></ion-icon>
+          delete
+        </ion-item-option>
+      </ion-item-options>
+    
+    </ion-item-sliding>
+  </ion-list>
+</ion-col>
+</ion-row>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/add-sous-categorie', idcategorie]">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+     
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
+

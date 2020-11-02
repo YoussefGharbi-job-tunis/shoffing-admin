@@ -4,22 +4,21 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Add categorie</ion-title>
+    <ion-title>Add sous categorie</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item>
-      <ion-input type="text" [(ngModel)]="categorie.name" placeholder="Name"></ion-input>
+      <ion-input type="text" [(ngModel)]="souscategorie.name" placeholder="Name"></ion-input>
     </ion-item>
     
     <ion-item lines="none">
-      <input type="file" [(ngModel)]="categorie.picture" (change)="chooseFile($event)" required>
+      <input type="file" [(ngModel)]="souscategorie.picture" (change)="chooseFile($event)" required>
     </ion-item>
- 
-    
-  </ion-list>
+
+</ion-list>
 
 </ion-content>
 

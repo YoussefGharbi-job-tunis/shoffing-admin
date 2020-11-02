@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AuthService {
   }
  
 
-  constructor(private afa: AngularFireAuth) {}
+  constructor(private afa: AngularFireAuth,private db: AngularFirestore) {}
  
     login(email:string, password:string){
 
@@ -28,6 +29,9 @@ export class AuthService {
   logout() {
     return this.afa.auth.signOut();
   }
+  getUserInformation(email:string){  
+    return this.db.collection("/Users",ref=>ref.where("email","==",email)).valueChanges()
+}
 
   getAuth() {
     return this.afa.auth;
