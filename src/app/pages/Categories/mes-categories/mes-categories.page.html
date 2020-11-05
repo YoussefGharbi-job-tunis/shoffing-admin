@@ -1,63 +1,52 @@
-
-
 <ion-header>
-  <ion-toolbar color="primary">
-
-     <ion-button slot="end" fill="clear" (click)="presentActionSheet()">
-      <ion-back-button></ion-back-button>
-       <ion-icon style="color:#fff" name="menu"></ion-icon>
-     
-     </ion-button>
-     
-     <ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
        Mes categories
      </ion-title>
    </ion-toolbar>
  </ion-header>
+
  <ion-content>
-
-  <ion-searchbar (ionInput)="filterList($event)"></ion-searchbar>
-
-<ion-row>
- <ion-col>
-
-
-<ion-list class="categorie">
-  
-  <ion-item-sliding *ngFor="let categorie of categories;">
-    <ion-item button [routerLink]="['/liste-sous-categorie',categorie.id]">
-      <ion-avatar slot="start">
-        <img [src]="categorie.picture">
-      </ion-avatar>
-  
-      <ion-label>
-        {{ categorie.name }}
-        </ion-label>
-    </ion-item>
- 
-     
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="deletecategorie(categorie.id)">
-          <ion-icon slot="top" name="trash"></ion-icon>
-          delete
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-</ion-col>
-</ion-row>
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-row>
+     <ion-col>
+       <ion-list>
+         <ion-item-sliding *ngFor="let categorie of categories;">
+           <ion-item button [routerLink]="['/liste-sous-categorie',categorie.id]">
+            <ion-avatar slot="start">
+              <img [src]="categorie.picture">
+            </ion-avatar>
+            <ion-label>
+              {{ categorie.name }}
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="success" [routerLink]="['/add-sous-categorie',categorie.id]" >
+              <ion-icon slot="top" name="add"></ion-icon>
+              add
+            </ion-item-option>
+            <ion-item-option color="tertiary" [routerLink]="['/add-categorie',categorie.id]" >
+              <ion-icon slot="top" name="construct"></ion-icon>
+              edit
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="deletecategorie(categorie.id)">
+              <ion-icon slot="top" name="trash"></ion-icon>
+              del
+            </ion-item-option>
+            
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="'/add-categorie'">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-grid>
-     
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>
+
 
 

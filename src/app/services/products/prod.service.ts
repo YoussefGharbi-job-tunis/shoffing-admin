@@ -63,8 +63,20 @@ export class ProdService {
 
 
 
-  updateProduct(id: string, product: Product) {
-    return this.productsCollection.doc<Product>(id).update(product);
+  updateProduct(id: string, product: Product,url) {
+    this.productsCollection.doc<Product>(id).update(product)
+    .then(async resp => {
+
+      const imageUrl = await this.uploadFile(id, url)
+
+      this.productsCollection.doc(id).update({
+      
+        picture: imageUrl || product.picture
+      })
+    }).catch(error => {
+      console.log(error);
+    })
+    
   }
  /* updateAmount(id:string,amount:number){
     return this.productsCollection.doc<Product>(id).update({ totalamount: amount});

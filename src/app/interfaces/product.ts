@@ -5,6 +5,7 @@ export interface Product {
     picture?: string;
     price?: number;
     amount?:number,
-    salesUnit?:string
+    salesUnit?:string,
+    subCat?:string
 
 }

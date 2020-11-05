@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { Categorie } from '../interface/categorie';
+import { Categorie } from '../../interfaces/categorie';
 import { AngularFireStorage } from "@angular/fire/storage";
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -11,10 +11,10 @@ export class CategorieService {
   private CategorieCollection: AngularFirestoreCollection<Categorie>;
 
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage,) {
-    this.CategorieCollection = this.afs.collection<Categorie>('Categorie');
+    this.CategorieCollection = this.afs.collection<Categorie>('Categories');
   }
 
-  getCategorie() {
+  getCategories() {
     return this.CategorieCollection.snapshotChanges().pipe(
       map(Categories => {
         return Categories.map(a => {
@@ -27,14 +27,13 @@ export class CategorieService {
     );
   }
 
-  addcategorie(categorie: Categorie,url){
+  addCategorie(categorie: Categorie,url){
     this.CategorieCollection.add(categorie)
     .then(async resp => {
 
       const imageUrl = await this.uploadFile(resp.id, url)
 
       this.CategorieCollection.doc(resp.id).update({
-      
         picture: imageUrl || null
       })
     }).catch(error => {
@@ -45,39 +44,31 @@ export class CategorieService {
   async uploadFile(id, file) {
     if(file && file.length) {
     
-        const task = await this.storage.ref('images').child(id).put(file[0])
-        return this.storage.ref(`images/${id}`).getDownloadURL().toPromise();
+        const task = await this.storage.ref('catImages').child(id).put(file[0])
+        return this.storage.ref(`catImages/${id}`).getDownloadURL().toPromise();
       
     }
   }
-
-
-  getAllcategorie(id: string){  
-    
-    return this.CategorieCollection.snapshotChanges().pipe(
-      map(Categories => {
-        return Categories.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-
-          return { id, ...data };
-        });
-      })
-    );
-   
-   }
-
-  getcategorie(id: string) {
+  getCategorie(id: string) {
     return this.CategorieCollection.doc<Categorie>(id).valueChanges();
   }
 
 
-updateCategorie(id: string, categorie: Categorie) {
-    return this.CategorieCollection.doc<Categorie>(id).update(categorie);
+  async updateCategorie(id: string, categorie: Categorie,url) {
+  
+    const imageUrl = await this.uploadFile(id, url)
+
+      this.CategorieCollection.doc(id).update({
+        name:categorie.name,
+        picture: imageUrl || categorie.picture
+      }).catch(error => {
+        console.log(error);
+      })
+    
   }
  
 
-  deletecategorie(id: string) {
+  deleteCategorie(id: string) {
     return this.CategorieCollection.doc(id).delete();
   }
 }

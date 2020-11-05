@@ -6,6 +6,10 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { ProdService } from 'src/app/services/products/prod.service';
 import { salesUnit } from 'src/app/interfaces/salesUnit';
 import { SalesUnitService } from 'src/app/services/salesUnit/sales-unit.service';
+import { CategorieService } from 'src/app/services/categories/categorie.service';
+import { SouscatService } from 'src/app/services/sousCategories/souscat.service';
+import { Categorie } from 'src/app/interfaces/categorie';
+import { sousCategorie } from 'src/app/interfaces/sousCategorie';
 
 @Component({
   selector: 'app-edit-product',
@@ -19,6 +23,9 @@ export class EditProductPage implements OnInit {
   public salesUnit=new Array<salesUnit>()  
   private loading: any;
   private productSubscription: Subscription;
+  Categories=new Array<Categorie>()
+  subCat=new Array<sousCategorie>()
+  selectedFile: any;
 
  
   constructor(
@@ -27,7 +34,8 @@ export class EditProductPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private router:Router) {
+    private router:Router,  private categorieService:CategorieService,
+    private subCatService:SouscatService) {
      
     this.productId = this.activatedRoute.snapshot.params['id'];
 
@@ -38,14 +46,26 @@ export class EditProductPage implements OnInit {
   this.loadProduct()
   this.loadSalesUnits()
 
-  //this.loadCategories();
+  this.loadCategories();
 
    }
-/*loadCategories(){
-  this.categorieService.getCategies().subscribe(data=>{
-    this.categories=data
-  })
-}*/
+   loadCategories(){
+    this.categorieService.getCategories().subscribe((data)=>{
+      this.Categories=data
+      console.log(this.Categories);
+      
+    })
+  }
+  fetchSubCat(event){
+    console.log(event.detail.value);
+    this.subCatService.getSousCategories(event.detail.value).subscribe((data)=>{
+      this.subCat=data
+      console.log(this.subCat);
+      
+    })
+    
+  
+  }
 loadSalesUnits(){
   this.salesUnitService. getSalesUnits().subscribe(data=>{
     this.salesUnit=data
@@ -61,13 +81,16 @@ loadProduct() {
       console.log(this.product);
     });
   }
+  chooseFile (event) {
+    this.selectedFile = event.target.files
+  }
 
   
 async saveProduct() {
     await this.presentLoading();
 
       try {
-        await this.productService.updateProduct(this.productId, this.product);
+        await this.productService.updateProduct(this.productId, this.product,this.selectedFile);
         await this.loading.dismiss();
         this.router.navigate(["/home"])
 

@@ -42,7 +42,7 @@
   </span>
   
       <ion-item lines="none">
-        <input type="file" formControlName="picture" (change)="chooseFile($event)" required>
+        <input type="file" (change)="chooseFile($event)" required>
       </ion-item>
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.picture.errors?.required">
         photo is required.
@@ -57,6 +57,20 @@
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
         sales Unit is required.
      </span>
+     <ion-item>
+      <ion-select (ionChange)="fetchSubCat($event)" >
+        <ion-select-option *ngFor="let item of Categories" [value]="item.id">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+     <ion-item>
+      <ion-select  formControlName="subCat" >
+        <ion-select-option *ngFor="let item of subCat" [value]="item.name">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
   
       <ion-item>
         <ion-input type="number" formControlName="price" placeholder="Price"></ion-input>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Add sales Units</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list >
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="salesobjet.libelle" maxlength="10" minlength="1" required placeholder="libelle"></ion-input>
+      <ion-button (click)="save()" expand="block" *ngIf="!idSalesUnit" >
+        Save 
+      </ion-button>
+      <ion-button (click)="updateUnit()" expand="block"  *ngIf="idSalesUnit">
+        Edit
+      </ion-button>
+    </ion-item>
+    </ion-list>
+</ion-content>

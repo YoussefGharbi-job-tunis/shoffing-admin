@@ -1,4 +1,4 @@
-export interface Souscategorie {
+export interface sousCategorie {
     id?: string;
     name?: string;
     picture?: string;

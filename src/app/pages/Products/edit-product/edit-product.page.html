@@ -29,6 +29,20 @@
       </ion-select>
     </ion-item>
     <ion-item>
+      <ion-select (ionChange)="fetchSubCat($event)" >
+        <ion-select-option *ngFor="let item of Categories" [value]="item.id">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+     <ion-item>
+      <ion-select [(ngModel)]= "product.subCat" >
+        <ion-select-option *ngFor="let item of subCat" [value]="item.name">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
       <ion-input type="number" [(ngModel)]="product.price" placeholder="Price"></ion-input>
     </ion-item>
     <ion-item>
