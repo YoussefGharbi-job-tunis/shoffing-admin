@@ -29,15 +29,15 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-select (ionChange)="fetchSubCat($event)" >
+      <ion-select (ionChange)="fetchSubCat($event)" [(ngModel)]= "product.idCat"  >
         <ion-select-option *ngFor="let item of Categories" [value]="item.id">
           {{item.name}}
         </ion-select-option>
       </ion-select>
     </ion-item>
      <ion-item>
-      <ion-select [(ngModel)]= "product.subCat" >
-        <ion-select-option *ngFor="let item of subCat" [value]="item.name">
+      <ion-select [(ngModel)]= "product.idsubCat" >
+        <ion-select-option *ngFor="let item of subCat" [value]="item.id">
           {{item.name}}
         </ion-select-option>
       </ion-select>

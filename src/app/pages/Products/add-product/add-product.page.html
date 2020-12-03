@@ -58,15 +58,15 @@
         sales Unit is required.
      </span>
      <ion-item>
-      <ion-select (ionChange)="fetchSubCat($event)" >
+      <ion-select (ionChange)="fetchSubCat($event)" formControlName="idCat">
         <ion-select-option *ngFor="let item of Categories" [value]="item.id">
           {{item.name}}
         </ion-select-option>
       </ion-select>
     </ion-item>
      <ion-item>
-      <ion-select  formControlName="subCat" >
-        <ion-select-option *ngFor="let item of subCat" [value]="item.name">
+      <ion-select  formControlName="idsubCat" >
+        <ion-select-option *ngFor="let item of subCat" [value]="item.id">
           {{item.name}}
         </ion-select-option>
       </ion-select>

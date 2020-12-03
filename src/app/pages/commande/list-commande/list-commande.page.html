@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>list-commande</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div   *ngFor="let item of commandes;" >
+      <ion-item button [routerLink]="['/detail-commande',item.id]">
+      
+     <ion-col size="7">
+        <ion-label>
+          <p> N° {{item.id}}</p>
+          <ion-note color="primary" >{{item.createdAt | date}}     
+          </ion-note>
+        </ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <ion-label>
+        <p> Client : {{item.client.userName}}</p>
+        <ion-note color="primary" >
+          <p> Total : {{ item.total | currency: 'TND '}}</p>
+        </ion-note>
+      </ion-label>
+       
+      </ion-col>
+     
+  
+    </ion-item>
+  </div>
+  </ion-list>
+</ion-content>

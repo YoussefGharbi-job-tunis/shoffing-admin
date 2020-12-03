@@ -42,7 +42,8 @@ export class AddProductPage implements OnInit {
         price: ['' ,[Validators.required, Validators.pattern('^[0-9]+$')]],
         amount: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
         salesUnit: ['',[Validators.required]],
-        subCat: ['',[Validators.required]]
+        idCat: ['',[Validators.required]],
+        idsubCat: ['',[Validators.required]]
       })
        this.loadSalesUnit()
        this.loadCategorie()

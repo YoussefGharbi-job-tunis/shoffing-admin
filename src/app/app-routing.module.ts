@@ -8,10 +8,6 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule', canActivate: [LoggedGuard] },
   {
-    path: 'list-orders',
-    loadChildren: () => import('./pages/orders/list-orders/list-orders.module').then( m => m.ListOrdersPageModule),canActivate: [AuthGuard]
-  },
-  {
     path: 'add-product',
     loadChildren: () => import('./pages/Products/add-product/add-product.module').then( m => m.AddProductPageModule),canActivate: [AuthGuard]
   },
@@ -57,6 +53,15 @@ const routes: Routes = [
     path: 'edit-sous-categorie/:idSubCat',
     loadChildren: () => import('./pages/Sous-categories/edit-sous-categorie/edit-sous-categorie.module').then( m => m.EditSousCategoriePageModule)
   },
+  {
+    path: 'detail-commande/:id',
+    loadChildren: () => import('./pages/commande/detail-commande/detail-commande.module').then( m => m.DetailCommandePageModule)
+  },
+  {
+    path: 'list-commande',
+    loadChildren: () => import('./pages/commande/list-commande/list-commande.module').then( m => m.ListCommandePageModule)
+  },
+
 
  
 

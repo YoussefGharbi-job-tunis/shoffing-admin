@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detail-commande</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item>
+         <ion-text color="primary"><p>Total : {{ commande.total  | currency: 'TND'}}</p></ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Client</ion-label>
+      <ion-text  color="dark" > 
+         <p>Name : {{client.userName}}</p>
+         <p>Phone : {{client.tel}}</p>
+         <p >adresse : {{client.adress}}</p>
+      </ion-text>
+ </ion-item>
+
+ <ion-list >
+      <ion-label slot="start">Items</ion-label>
+      <ion-card *ngFor="let item of commande.cart">
+        <ion-item>
+          <ion-avatar slot="start" >
+             <img [src]="item.picture">
+          </ion-avatar> 
+          <ion-note slot="start" color="dark">
+             <h4>{{item.name }}</h4> 
+             <p>Qte : {{item.qte }}</p> 
+          </ion-note>
+         </ion-item>
+      </ion-card>
+  </ion-list>
+</ion-content>
